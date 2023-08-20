@@ -62,7 +62,7 @@ namespace SharpOS.API
     public static class SharpOSComponentUtl
     {
         /// <summary>
-        /// Loads a SharpOS Component through a .NET Framework DLL. (All DLLs must contain .NET Framework v4.2.7! No exceptions.
+        /// Loads a SharpOS Component through a .NET Framework DLL. (All DLLs must contain .NET Framework v4.7.2! No exceptions.
         /// </summary>
         /// <param name="cmpnt">The path to the DLL.</param>
         /// <param name="dbg">If to send debug information to the output. (Default: false).</param>
