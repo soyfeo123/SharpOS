@@ -20,13 +20,31 @@ namespace SharpOS.API
 
     public class SharpOSComponent
     {
+        SharpOSComponentData currentSOData;
         public virtual SharpOSComponentData OnComponentInit()
         {
-            return new SharpOSComponentData();
+            
+            currentSOData = new SharpOSComponentData();
+            return currentSOData;
         }
         public virtual void OnComponentDataSent()
         {
 
+        }
+        public virtual void OnComponentEnded()
+        {
+            if (currentSOData.NON_ENDABLE == false)
+            {
+                SharpOSKrnl.Program.RUNNING_COMPONENTS.Remove(currentSOData);
+            }
+            else
+            {
+                throw new Exception("Component cannot be ended due to the NON_ENDABLE value being set to True.");
+            }
+        }
+        public void EndComponent()
+        {
+            OnComponentEnded();
         }
     }
 
@@ -78,6 +96,7 @@ namespace SharpOS.API
                 SharpOSComponentData data = component.OnComponentInit();
                 data.RUNNING_COMPONENT = component;
                 SharpOSKrnl.Program.RUNNING_COMPONENTS.Add(data);
+                component.OnComponentDataSent();
             }
             return component;
         }

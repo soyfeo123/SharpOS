@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -13,9 +14,8 @@ namespace SharpOS.Boot
     {
         public override SharpOSComponentData OnComponentInit()
         {
-            
             SharpOSComponentData returnedCmpnt = new SharpOSComponentData();
-            returnedCmpnt.COMPONENT_NAME = "Boot";
+            returnedCmpnt.COMPONENT_NAME = "SharpOS Boot Component";
             returnedCmpnt.SYSTEM = true;
             returnedCmpnt.NON_ENDABLE = true;
             return returnedCmpnt;
@@ -41,6 +41,7 @@ namespace SharpOS.Boot
             Console.WriteLine("\na console OS made with C#");
             Console.CursorVisible = true;
             Thread.Sleep(5000);
+            SharpOSComponentUtl.LoadComponentFromDLL(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SharpOS", "System", "UserManagement.dll"), true, true);
         }
 
         void DoLetterRiseIGuess(int letterPos, char letter)

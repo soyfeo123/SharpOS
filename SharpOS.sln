@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boot", "Boot\Boot.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpOS.API", "SharpOS.API\SharpOS.API.csproj", "{DF8FB250-7306-4519-A5D5-9CABBD6491DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement", "UserManagement\UserManagement.csproj", "{DB8ACD9F-F785-4E00-B52D-6C194AB28C56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DF8FB250-7306-4519-A5D5-9CABBD6491DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF8FB250-7306-4519-A5D5-9CABBD6491DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF8FB250-7306-4519-A5D5-9CABBD6491DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB8ACD9F-F785-4E00-B52D-6C194AB28C56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB8ACD9F-F785-4E00-B52D-6C194AB28C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB8ACD9F-F785-4E00-B52D-6C194AB28C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB8ACD9F-F785-4E00-B52D-6C194AB28C56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

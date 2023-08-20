@@ -21,7 +21,7 @@ namespace SharpOSKrnl
                 Console.WriteLine("ReadFileA failed (0x0231000 SO_FILENOTFOUND)\nSystem halted"); Application.Run();
             }
             Thread.Sleep(4000);
-            SharpOSComponent boot = SharpOSComponentUtl.LoadComponentFromDLL(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SharpOS", "System", "Boot.dll"), false, true);
+            SharpOSComponentUtl.LoadComponentFromDLL(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SharpOS", "System", "Boot.dll"), false, true);
             Application.Run();
         }
     }
