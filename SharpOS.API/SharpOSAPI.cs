@@ -20,7 +20,7 @@ namespace SharpOS.API
 
     public class SharpOSComponent
     {
-        SharpOSComponentData currentSOData;
+        public SharpOSComponentData currentSOData;
         public virtual SharpOSComponentData OnComponentInit()
         {
             

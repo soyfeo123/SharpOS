@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpOS.API", "SharpOS.API\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement", "UserManagement\UserManagement.csproj", "{DB8ACD9F-F785-4E00-B52D-6C194AB28C56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement.UserCreation", "UserManagement.UserCreation\UserManagement.UserCreation.csproj", "{79D0350F-2A10-4815-BCDD-23ED80E461BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{DB8ACD9F-F785-4E00-B52D-6C194AB28C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB8ACD9F-F785-4E00-B52D-6C194AB28C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB8ACD9F-F785-4E00-B52D-6C194AB28C56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79D0350F-2A10-4815-BCDD-23ED80E461BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79D0350F-2A10-4815-BCDD-23ED80E461BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79D0350F-2A10-4815-BCDD-23ED80E461BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79D0350F-2A10-4815-BCDD-23ED80E461BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
