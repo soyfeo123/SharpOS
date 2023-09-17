@@ -17,6 +17,7 @@ namespace SharpOSKrnl
         static void Main(string[] args)
         {
             Console.Title = "SO_BOOTMNGR";
+            Console.WriteLine("Press alt+enter for fullscreen, press enter to remain windowed");
             if (!File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SharpOS", "System", "Boot.dll")))
             {
                 Console.WriteLine("ReadFileA failed (0x0231000 SO_FILENOTFOUND)\nSystem halted"); Application.Run();
