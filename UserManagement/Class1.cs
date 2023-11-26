@@ -6,6 +6,8 @@ using SharpOS.API;
 using System.Threading.Tasks;
 using System.IO;
 using SharpOS.UserManagement.UserCreation;
+using System.Threading;
+using System.Media;
 
 [assembly: SharpOSCmpntInit(typeof(SharpOS.UserManagement.UserManagementComponent))]
 
@@ -13,6 +15,8 @@ namespace SharpOS.UserManagement
 {
     public class UserManagementComponent : SharpOSComponent
     {
+        SoundPlayer startupSound = new SoundPlayer(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SharpOS", "SystemSounds", "Boot", "SO_STARTUP_RELAX.wav"));
+        
         public override SharpOSComponentData OnComponentInit()
         {
 
@@ -24,6 +28,7 @@ namespace SharpOS.UserManagement
         }
         public override void OnComponentDataSent()
         {
+            startupSound.Load();
             Console.WriteLine("LoadComponentFromDLL UserCreation");
             SharpOSComponentUtl.LoadComponentFromDLL(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SharpOS", "System", "UserManagement.UserCreation.dll"), true, true);
             Console.Title = "SharpOS User Login";
@@ -36,9 +41,16 @@ namespace SharpOS.UserManagement
             }
             DrawSelectUser();
         }
+
+        public void PlayStartup()
+        {
+            startupSound.Play();
+        }
+
         void DrawSelectUser()
         {
             Console.Clear();
+            
             Console.WriteLine("Welcome to SharpOS.\n");
             string[] allUsers = new string[0];
             bool hasUser = false;
@@ -64,10 +76,23 @@ namespace SharpOS.UserManagement
                     Console.ReadKey();
                     DrawSelectUser();
                 }
+                else
+                {
+                    SharpOSUser user = SharpOSUser.LoginAndInitUser(new DirectoryInfo(allUsers[int.Parse(keyPressed.ToString()) - 1]).Name);
+                    PlayStartup();
+                    Console.WriteLine("\nWelcome, " + user.USER_NAME + ".");
+                    Thread.Sleep(5000);
+                    SharpOSComponentUtl.LoadComponentFromDLL(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SharpOS", "Shell.dll"), false, true);
+                }
             }
             else if(keyPressed == 'c')
             {
-                DrawNewUserScreen();
+                // TODO: fix this annoying heck random glitch
+                //DrawNewUserScreen();
+                Console.WriteLine("We're sorry, but that feature is under maintanance and will be disabled until it is fixed.\n\nNeed an alternative on creating a user?\nFollow these steps:\n\nGo to SharpOS's root folder, then create a \"Users\" folder.\nAfter that, create a new folder with your desired username.\nThen, create a \"p.txt\"file, and add your desired user password.");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+                DrawSelectUser();
             }
             else
             {
@@ -76,11 +101,11 @@ namespace SharpOS.UserManagement
         }
         void DrawNewUserScreen()
         {
-            for(int i = 0; i < SharpOSKrnl.Program.RUNNING_COMPONENTS.Count; i++)
+            foreach(SharpOSComponentData rc in SharpOSKrnl.Program.RUNNING_COMPONENTS)
             {
-                if (SharpOSKrnl.Program.RUNNING_COMPONENTS[i].COMPONENT_NAME == "UserCreationManager")
+                if(rc.COMPONENT_NAME == "UserCreationManager")
                 {
-                    (SharpOSKrnl.Program.RUNNING_COMPONENTS[i].RUNNING_COMPONENT as MainUserCreation).UIDialogCreateUser();
+                    (rc.RUNNING_COMPONENT as UserCreation.MainUserCreation).UIDialogCreateUser();
                 }
             }
             DrawSelectUser();

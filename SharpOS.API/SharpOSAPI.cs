@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Versioning;
@@ -10,6 +11,49 @@ using System.Threading.Tasks;
 
 namespace SharpOS.API
 {
+    /// <summary>
+    /// The struct to represent a SharpOS user.
+    /// </summary>
+    public struct SharpOSUser
+    {
+        public string USER_DIR;
+        public string[] USER_DESKTOP;
+        public string USER_NAME;
+        public bool USER_ISADMIN;
+
+
+        /// <summary>
+        /// When called, returns the loaded kernel user. (Basically a wrapper for (KRNL).CURRENT_USER in order to not require much libraries)
+        /// </summary>
+        /// <returns>The loaded kernel user from SharpOSKrnl.</returns>
+        public static SharpOSUser GetCurrentKernelUser()
+        {
+            return SharpOSKrnl.Program.CURRENT_USER;
+        }
+
+        public static SharpOSUser LoginAndInitUser(string USER_NAME)
+        {
+            foreach(string user in Directory.GetDirectories(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Users")))
+            {
+                if(new DirectoryInfo(user).Name == USER_NAME)
+                {
+                    SharpOSUser userObj = new SharpOSUser();
+                    userObj.USER_NAME = USER_NAME;
+                    userObj.USER_ISADMIN = Directory.Exists(Path.Combine(user,"admin.priv"));
+                    userObj.USER_DIR = user;
+                    if(!Directory.Exists(Path.Combine(user, "Desktop")))
+                    {
+                        Directory.CreateDirectory(Path.Combine(user, "Desktop"));
+                    }
+                    userObj.USER_DESKTOP = Directory.GetFileSystemEntries(Path.Combine(user, "Desktop"));
+                    SharpOSKrnl.Program.CURRENT_USER = userObj;
+                    return userObj;
+                }
+            }
+            throw new Exception("User " + USER_NAME + " does not exist");
+        }
+    }
+
     public struct SharpOSComponentData
     {
         public string COMPONENT_NAME;
@@ -61,6 +105,15 @@ namespace SharpOS.API
 
     public static class SharpOSComponentUtl
     {
+        /// <summary>
+        /// DANGEROUS! Restarts the SharpOS system. DO NOT USE BECAUSE YES! This is VERY dangerous.
+        /// </summary>
+        public static void RestartSharpOS()
+        {
+            Console.Clear();
+            SharpOSKrnl.Program.Main(null);
+        }
+
         /// <summary>
         /// Loads a SharpOS Component through a .NET Framework DLL. (All DLLs must contain .NET Framework v4.7.2! No exceptions.
         /// </summary>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SharpOS.API;
+using SharpOS.API; //go into every single one of the projects, into references and make sure SharpOS.API is included as one
 using System.Text;
 using System.Threading.Tasks;
 
